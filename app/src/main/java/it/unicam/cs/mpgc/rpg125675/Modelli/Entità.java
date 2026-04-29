@@ -1,51 +1,37 @@
 package it.unicam.cs.mpgc.rpg125675.Modelli;
 
-import it.unicam.cs.mpgc.rpg125675.Interfacce.Azioni;
 
-public abstract class Entità implements Azioni {
+
+public abstract class Entità {
 
     private String nome;
     private int hp;
-    private int maxHp;
-    private int dmg;
+    private int attacco;
 
-    public Entità(String nome, int hp, int dmg){
+    public Entità(){}
+
+    public Entità(String nome, int hp, int attacco) {
         this.nome = nome;
         this.hp = hp;
-        this.maxHp = hp;
-        this.dmg = dmg;
-
+        this.attacco = attacco;
     }
 
-    @Override
-    public void attacca(Entità entità){
-        entità.setHp(entità.getHp()-dmg);
+    public void attacca(Entità entità1, Entità entità2) {
+       entità2.setHp(entità2.getHp() - entità1.getAttacco());
     }
-    @Override
+    public boolean isAlive() {
+        return hp > 0;
+    }
     public int getHp() {
         return hp;
     }
-    @Override
-    public void setHp(int hp) {
+    public int setHp(int hp) {
         this.hp = hp;
+        return hp;
     }
-    @Override
-    public void cura(Entità entità){
-        int hpCurati = entità.getHp() + 10;
-        entità.setHp(Math.min(hpCurati, entità.getMaxHp()));
+    public int getAttacco() {
+        return attacco;
     }
-    @Override
-    public int  getDmg() {
-        return dmg;
-    }
-    @Override
-    public int getMaxHp() {
-        return maxHp;
-    }
-
     public String getNome() {
-        return nome;
-    }
-
-
+        return nome; }
 }
