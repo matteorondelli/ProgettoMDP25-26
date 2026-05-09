@@ -21,6 +21,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -33,4 +34,8 @@ java {
 application {
     // Define the main class for the application.
     mainClass = "it.unicam.cs.mpgc.rpg125675.Main"
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }
