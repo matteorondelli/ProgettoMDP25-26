@@ -1,6 +1,6 @@
-package it.unicam.cs.mpgc.rpg125675.Modelli;
+package it.unicam.cs.mpgc.rpg125675.modelli;
 
-public abstract class Entità {
+public abstract class Entita {
 
     private String nome;
     private int puntiVita;
@@ -8,7 +8,17 @@ public abstract class Entità {
     private int attacco;
 
 
-    public Entità(String nome, int puntiVita, int attacco) {
+    public Entita(String nome, int puntiVita, int attacco) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Il nome non può essere vuoto");
+        }
+        if (puntiVita <= 0) {
+            throw new IllegalArgumentException("I punti vita devono essere positivi");
+        }
+        if (attacco < 0) {
+            throw new IllegalArgumentException("L'attacco non può essere negativo");
+        }
+
         this.nome = nome;
         this.puntiVita = puntiVita;
         this.puntiVitaMassimi = puntiVita;
@@ -17,15 +27,12 @@ public abstract class Entità {
 
 
 
-    public void attacca(Entità nemico){
+    public void attacca(Entita nemico){
         nemico.setPuntiVita(Math.max(0, nemico.getPuntiVita() - this.getAttacco()));
     }
-    public boolean vivo(){
+    public boolean vivo() {
         return this.puntiVita > 0;
     }
-
-
-
     public int getPuntiVita() {
         return puntiVita;
     }
@@ -37,9 +44,6 @@ public abstract class Entità {
     }
     public int getAttacco() {
         return attacco;
-    }
-    public void setAttacco(int attacco) {
-        this.attacco = attacco;
     }
     public String getNome() {
         return nome;
