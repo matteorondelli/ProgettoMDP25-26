@@ -1,8 +1,8 @@
-package it.unicam.cs.mpgc.rpg125675.Modelli;
+package it.unicam.cs.mpgc.rpg125675.modelli;
 
 
 
-public class Personaggio extends Entità {
+public class Personaggio extends Entita {
 
         public Personaggio(String nome, int puntiVita, int attacco) {
             super(nome,puntiVita,attacco);
