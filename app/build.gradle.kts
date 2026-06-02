@@ -44,7 +44,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "it.unicam.cs.mpgc.rpg125675.giocogriglia.Maina"
+    mainClass = "it.unicam.cs.mpgc.rpg125675.Main"
 }
 
 tasks.named<JavaExec>("run") {
