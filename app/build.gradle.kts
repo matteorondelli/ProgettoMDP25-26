@@ -42,6 +42,10 @@ java {
     }
 }
 
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
+}
+
 application {
     // Define the main class for the application.
     mainClass = "it.unicam.cs.mpgc.rpg125675.Main"
@@ -49,4 +53,5 @@ application {
 
 tasks.named<JavaExec>("run") {
     standardInput = System.`in`
+    jvmArgs("-Dfile.encoding=UTF-8")
 }
