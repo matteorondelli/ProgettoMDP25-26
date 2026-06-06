@@ -16,6 +16,9 @@ public abstract class EntitaCombattente implements Attaccabile {
         this.attacco = attacco;
     }
 
+    protected void aumentoPuntiVitaMassimi(int valore) { this.puntiVitaMassimi += valore; }
+
+    protected void aumentoAttacco(int valore) { this.attacco += valore; }
 
     @Override
     public void prendiDanno(int danno){
