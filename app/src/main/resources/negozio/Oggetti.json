@@ -1,0 +1,8 @@
+{
+  "oggetti": [
+    {"nome": "Spada di Ferro", "prezzo": 30, "tipo": "ARMA", "valore": 8},
+    {"nome": "Ascia da Guerra", "prezzo": 50, "tipo": "ARMA", "valore": 15},
+    {"nome": "Pozione Piccola", "prezzo": 15, "tipo": "POZIONE", "valore": 30},
+    {"nome": "Pozione Grande", "prezzo": 30, "tipo": "POZIONE", "valore": 60}
+  ]
+}

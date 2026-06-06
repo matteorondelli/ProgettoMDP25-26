@@ -20,7 +20,7 @@ public class Giocatore extends EntitaCombattente {
     private static final int FRAMMENTI_NECESSARI = 3;
     private static final int ESPERIENZA_BASE = 100;
     private static final int PUNTIVITA_PER_LIVELLO = 10;
-    private static final int ATTACCO_PER_LIVELLO     = 3;
+    private static final int ATTACCO_PER_LIVELLO = 3;
 
 
     public Giocatore(String nome, int puntiVitaMassimi, int attacco, int oro) {
@@ -81,9 +81,13 @@ public class Giocatore extends EntitaCombattente {
     }
 
     public boolean spendiOro(int quantita) {
-        if (oro < quantita) return false;
-        oro -= quantita;
-        return true;
+        if (oro < quantita) {
+            return false;
+        }
+        else {
+            oro -= quantita;
+            return true;
+        }
     }
 
     public void aggiungiOro(int quantita) {

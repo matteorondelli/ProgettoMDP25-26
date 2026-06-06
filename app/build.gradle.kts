@@ -23,6 +23,9 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
 
+    //dependency for using json files
+    implementation("com.google.code.gson:gson:2.10.1")
+
     implementation ("org.openjfx:javafx-controls:25.0.3")
     implementation ("org.openjfx:javafx-fxml:25.0.3")
     implementation ("org.openjfx:javafx-web:25.0.3")
