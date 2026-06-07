@@ -4,7 +4,7 @@ import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.Attaccabile;
 
 public abstract class EntitaCombattente implements Attaccabile {
 
-    private String nome;
+    private final String nome;
     private int puntiVita;
     private int puntiVitaMassimi;
     private int attacco;
@@ -26,12 +26,13 @@ public abstract class EntitaCombattente implements Attaccabile {
     }
 
     @Override
-    public boolean vivo(){
+    public boolean isVivo(){
         return this.puntiVita > 0;
     }
 
     @Override
     public int getPuntiVita(){
+        if(puntiVita <= 0) return 0;
         return puntiVita;
     }
 
@@ -51,12 +52,6 @@ public abstract class EntitaCombattente implements Attaccabile {
     public String getNome(){
         return nome;
     }
-
-
-
-
-
-
 
 
 }

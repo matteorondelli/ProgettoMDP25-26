@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class GeneratoreMostri {
 
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
     private static final double PROBABILITA_FRAMMENTO = 0.4;
 
 

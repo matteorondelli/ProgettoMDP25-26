@@ -4,21 +4,20 @@ import java.util.Random;
 
 public class Boss extends EntitaCombattente {
 
-    private final int dannoAttaccoSpeciale;
-    private final double probabilitaAttaccoSpeciale;
-    private static final Random rand = new Random();
 
-    public Boss(String nome, int puntiVitaMassimi, int attacco, int dannoAttaccoSpeciale, double probabilitaAttaccoSpeciale) {
+    private static final Random rand = new Random();
+    private static final double PROBABILITA_ATTACCO_SPECIALE = 0.3;
+    private static final int MOLTIPLICATORE_ATTACCO_SPECIALE = 2;
+
+    public Boss(String nome, int puntiVitaMassimi, int attacco) {
         super(nome, puntiVitaMassimi, attacco);
-        this.dannoAttaccoSpeciale = dannoAttaccoSpeciale;
-        this.probabilitaAttaccoSpeciale = probabilitaAttaccoSpeciale;
     }
 
     public boolean eseguiAttaccoSpeciale() {
-        return rand.nextDouble() < probabilitaAttaccoSpeciale;
+        return rand.nextDouble() < PROBABILITA_ATTACCO_SPECIALE;
     }
 
     public int getDannoAttaccoSpeciale() {
-        return dannoAttaccoSpeciale;
+        return getAttacco() * MOLTIPLICATORE_ATTACCO_SPECIALE;
     }
 }

@@ -23,15 +23,15 @@ public class CaricaJson {
     private CaricaJson() {}
 
 
-    private static JsonArray leggiJson(String PERCORSO_FILE, String tipo) {
-        try (InputStream stream = CaricaJson.class.getResourceAsStream(PERCORSO_FILE)) {
+    private static JsonArray leggiJson(String percorsoFile, String tipo) {
+        try (InputStream stream = CaricaJson.class.getResourceAsStream(percorsoFile)) {
             if (stream == null) {
-                throw new IllegalStateException("File non trovato: " + PERCORSO_FILE);
+                throw new IllegalStateException("File non trovato: " + percorsoFile);
             }
             InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
             return JsonParser.parseReader(reader).getAsJsonObject().getAsJsonArray(tipo);
         } catch (IOException e) {
-            throw new RuntimeException("Errore lettura file: " + PERCORSO_FILE, e);
+            throw new RuntimeException("Errore lettura file: " + percorsoFile, e);
         }
     }
 

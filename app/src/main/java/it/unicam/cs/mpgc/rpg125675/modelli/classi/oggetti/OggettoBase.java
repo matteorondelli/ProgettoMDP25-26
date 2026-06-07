@@ -5,9 +5,9 @@ import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.Acquistabile;
 
 public abstract class OggettoBase implements Acquistabile {
 
-    private String nome;
-    private int prezzo;
-    private TipiOggetti tipoOggetto;
+    private final String nome;
+    private final int prezzo;
+    private final TipiOggetti tipoOggetto;
 
     public  OggettoBase(String nome, int prezzo, TipiOggetti tipoOggetto) {
         this.nome = nome;

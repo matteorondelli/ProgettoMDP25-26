@@ -6,6 +6,7 @@ import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Pozione;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Giocatore extends EntitaCombattente {
 
@@ -17,6 +18,9 @@ public class Giocatore extends EntitaCombattente {
     private Arma armaEquipaggiata;
     private final List<OggettoBase> inventario;
 
+    private static final Random rand = new Random();
+    private static final double PROBABILITA_CRITICO = 0.3;
+    private static final int MOLTIPLICATORE_CRITICO = 2;
     private static final int FRAMMENTI_NECESSARI = 3;
     private static final int ESPERIENZA_BASE = 100;
     private static final int PUNTIVITA_PER_LIVELLO = 10;
@@ -54,6 +58,10 @@ public class Giocatore extends EntitaCombattente {
         cura(getPuntiVitaMassimi());
     }
 
+    public void equipaggiaArma(Arma arma) {
+        this.armaEquipaggiata = arma;
+    }
+
     public int getAttaccoTotale() {
         if (armaEquipaggiata != null) {
             return getAttacco() + armaEquipaggiata.getBonusAttacco();
@@ -61,9 +69,14 @@ public class Giocatore extends EntitaCombattente {
         return getAttacco();
     }
 
-    public void equipaggiaArma(Arma arma) {
-        this.armaEquipaggiata = arma;
+    public boolean eseguiAttaccoCritico() {
+        return rand.nextDouble() < PROBABILITA_CRITICO;
     }
+
+    public int getDannoCritico(){
+        return getAttaccoTotale() * MOLTIPLICATORE_CRITICO;
+    }
+
 
     public boolean usaPozione() {
         for (OggettoBase oggetto : inventario) {
