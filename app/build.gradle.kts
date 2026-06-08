@@ -51,7 +51,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 application {
     // Define the main class for the application.
-    mainClass = "it.unicam.cs.mpgc.rpg125675.Main"
+    mainClass = "it.unicam.cs.mpgc.rpg125675.viste.MappaFX"
 }
 
 tasks.named<JavaExec>("run") {

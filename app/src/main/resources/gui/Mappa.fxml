@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="302.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg125675.controlli.ControlloGioco">
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="410.0" prefWidth="604.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="EtichettaStatistiche" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="475.0" text="Label" textAlignment="CENTER" />
+            <TextArea fx:id="areaOutput" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="475.0" wrapText="true" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <HBox maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="606.0">
+         <children>
+            <TextField fx:id="input" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="" prefHeight="26.0" prefWidth="412.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="enter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#gestisciInput" prefHeight="26.0" prefWidth="34.0" text="Button" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

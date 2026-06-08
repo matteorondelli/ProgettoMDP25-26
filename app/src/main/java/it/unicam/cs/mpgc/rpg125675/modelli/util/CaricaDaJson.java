@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg125675.modelli.classi.util;
+package it.unicam.cs.mpgc.rpg125675.modelli.util;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Arma;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.OggettoBase;
@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
 
-public class CaricaJson {
+public class CaricaDaJson {
 
     private static final String PERCORSO_NEGOZIO = "/negozio/Oggetti.json";
     private static final String PERCORSO_MOSTRI= "/mostri/Mostri.json";
 
 
-    private CaricaJson() {}
+    private CaricaDaJson() {}
 
 
     private static JsonArray leggiJson(String percorsoFile, String tipo) {
-        try (InputStream stream = CaricaJson.class.getResourceAsStream(percorsoFile)) {
+        try (InputStream stream = CaricaDaJson.class.getResourceAsStream(percorsoFile)) {
             if (stream == null) {
                 throw new IllegalStateException("File non trovato: " + percorsoFile);
             }
@@ -48,12 +48,14 @@ public class CaricaJson {
     private static OggettoBase creaOggetto(JsonObject obj) {
         String nome = obj.get("nome").getAsString();
         int prezzo  = obj.get("prezzo").getAsInt();
-        String tipo = obj.get("tipo").getAsString();
         int valore  = obj.get("valore").getAsInt();
+        TipiOggetti tipo = TipiOggetti.valueOf(obj.get("tipo").getAsString());
 
-        if (tipo.equals("ARMA"))    return new Arma(nome, prezzo, TipiOggetti.ARMA, valore);
-        if (tipo.equals("POZIONE")) return new Pozione(nome, prezzo, TipiOggetti.POZIONE, valore);
-        throw new IllegalArgumentException("Tipo oggetto sconosciuto: " + tipo);
+        return switch (tipo) {
+            case ARMA    -> new Arma(nome, prezzo, tipo, valore);
+            case POZIONE -> new Pozione(nome, prezzo, tipo, valore);
+        };
+
     }
 
     public static List<Mostro> caricaMostri() {
