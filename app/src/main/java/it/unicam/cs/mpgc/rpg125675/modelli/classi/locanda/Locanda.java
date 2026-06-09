@@ -4,10 +4,10 @@ import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Giocatore;
 
 public class Locanda {
 
-    private final int costoRiposo;
+    private int costoRiposo;
 
-    public Locanda(int costoRiposo) {
-        this.costoRiposo = costoRiposo;
+    public Locanda() {
+        costoRiposo = 20;
     }
 
     public int getCostoRiposo() {

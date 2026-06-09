@@ -1,9 +1,7 @@
 {
   "mostri": [
-    {"nome": "Goblin",       "puntiVita": 20, "attacco": 5, "oro": 10, "esperienza": 30},
-    {"nome": "Orco",         "puntiVita": 40, "attacco": 10, "oro": 20, "esperienza": 50},
-    {"nome": "Scheletro",    "puntiVita": 25,  "attacco": 7, "oro": 12, "esperienza": 35},
-    {"nome": "Lupo Mannaro", "puntiVita": 50,  "attacco": 15, "oro": 30, "esperienza": 70},
-    {"nome": "Troll",        "puntiVita": 60,  "attacco": 18, "oro": 40,  "esperienza": 90}
+    {"nome": "Goblin","puntiVita": 20, "attacco": 5, "oro": 10, "esperienza": 30},
+    {"nome": "Orco","puntiVita": 40, "attacco": 10, "oro": 20, "esperienza": 50}
+
   ]
 }

@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 
-public class RisultatoCombattimento {
+public class DTOCombattimento {
 
     private final int dannoCausato;
     private final int dannoRicevuto;
@@ -9,8 +9,12 @@ public class RisultatoCombattimento {
     private final boolean giocatoreVivo;
     private final boolean nemicoVivo;
 
-    public RisultatoCombattimento(int dannoCausato, int dannoRicevuto, boolean attaccoSpecialeBoss, boolean attaccoCriticoGiocatore,
-                                  boolean giocatoreVivo, boolean nemicoVivo) {
+    public DTOCombattimento(int dannoCausato,
+                            int dannoRicevuto,
+                            boolean attaccoSpecialeBoss,
+                            boolean attaccoCriticoGiocatore,
+                            boolean giocatoreVivo,
+                            boolean nemicoVivo) {
         this.dannoCausato = dannoCausato;
         this.dannoRicevuto = dannoRicevuto;
         this.attaccoSpecialeBoss = attaccoSpecialeBoss;

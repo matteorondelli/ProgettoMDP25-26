@@ -1,8 +1,8 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi;
 
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Arma;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.OggettoBase;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Pozione;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.Attaccabile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,28 +15,46 @@ public class Giocatore extends EntitaCombattente {
     private int esperienzaPerLivello;
     private int oro;
     private int frammenti;
-    private Arma armaEquipaggiata;
     private final List<OggettoBase> inventario;
 
     private static final Random rand = new Random();
+    private static final int HP_INIZIALI        = 100;
+    private static final int ATTACCO_INIZIALE   = 18;
+    private static final int ORO_INIZIALE       = 50;
     private static final double PROBABILITA_CRITICO = 0.3;
     private static final int MOLTIPLICATORE_CRITICO = 2;
     private static final int FRAMMENTI_NECESSARI = 3;
-    private static final int ESPERIENZA_BASE = 100;
+    private static final int ESPERIENZA_BASE = 50;
     private static final int PUNTIVITA_PER_LIVELLO = 10;
-    private static final int ATTACCO_PER_LIVELLO = 3;
+    private static final int ATTACCO_PER_LIVELLO = 5;
 
 
-    public Giocatore(String nome, int puntiVitaMassimi, int attacco, int oro) {
-        super(nome, puntiVitaMassimi, attacco);
-        this.oro = oro;
+    public Giocatore(String nome) {
+        super(nome, HP_INIZIALI, ATTACCO_INIZIALE);
+        this.oro = ORO_INIZIALE;
         this.frammenti = 0;
-        this.armaEquipaggiata = null;
         this.inventario = new ArrayList<>();
         this.livello = 1;
         this.esperienza = 0;
         this.esperienzaPerLivello = ESPERIENZA_BASE;
     }
+
+    public String getStatistiche() {
+        String stats = getNome() +
+                " | Lv " + livello +
+                " | HP " + getPuntiVita() +
+                "/" + getPuntiVitaMassimi() +
+                " | Atk " + getAttacco() +
+                " | Oro " + oro +
+                " | Exp " + esperienza +
+                "/" + esperienzaPerLivello +
+                " | Frammenti " + frammenti +
+                "/" + FRAMMENTI_NECESSARI +
+                " | Pozioni " +inventario.size();
+
+        return stats;
+    }
+
 
     public void aggiungiEsperienza(int quantita){
         this.esperienza += quantita;
@@ -58,25 +76,13 @@ public class Giocatore extends EntitaCombattente {
         cura(getPuntiVitaMassimi());
     }
 
-    public void equipaggiaArma(Arma arma) {
-        this.armaEquipaggiata = arma;
-    }
-
-    public int getAttaccoTotale() {
-        if (armaEquipaggiata != null) {
-            return getAttacco() + armaEquipaggiata.getBonusAttacco();
-        }
-        return getAttacco();
-    }
-
     public boolean eseguiAttaccoCritico() {
         return rand.nextDouble() < PROBABILITA_CRITICO;
     }
 
     public int getDannoCritico(){
-        return getAttaccoTotale() * MOLTIPLICATORE_CRITICO;
+        return getAttacco() * MOLTIPLICATORE_CRITICO;
     }
-
 
     public boolean usaPozione() {
         for (OggettoBase oggetto : inventario) {
@@ -139,10 +145,6 @@ public class Giocatore extends EntitaCombattente {
 
     public int getEsperienzaPerLivello() {
         return esperienzaPerLivello;
-    }
-
-    public Arma getArmaEquipaggiata() {
-        return armaEquipaggiata;
     }
 
     public List<OggettoBase> getInventario() {

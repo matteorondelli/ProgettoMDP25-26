@@ -1,24 +1,12 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.locanda.Locanda;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.negozio.Negozio;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Boss;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.GeneratoreMostri;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Giocatore;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.*;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Luoghi;
 
 public class StatoGioco {
 
-    private static final int HP_INIZIALI        = 100;
-    private static final int ATTACCO_INIZIALE   = 18;
-    private static final int ORO_INIZIALE       = 50;
-    private static final int COSTO_RIPOSO       = 20;
-    private static final int BOSS_HP            = 150;
-    private static final int BOSS_ATTACCO       = 20;
-
-
     private final Giocatore giocatore;
-    private final Negozio negozio;
     private final Locanda locanda;
     private final GeneratoreMostri generatoreMostri;
     private final MotoreCombattimento motoreCombattimento;
@@ -29,16 +17,17 @@ public class StatoGioco {
     private boolean giocatoreHaVinto;
 
     public StatoGioco(String nomeGiocatore) {
-        this.giocatore           = new Giocatore(nomeGiocatore, HP_INIZIALI, ATTACCO_INIZIALE, ORO_INIZIALE);
-        this.negozio             = new Negozio();
-        this.locanda             = new Locanda(COSTO_RIPOSO);
-        this.generatoreMostri    = new GeneratoreMostri();
+        this.giocatore = new Giocatore(nomeGiocatore);
+        this.locanda = new Locanda();
+        this.generatoreMostri = new GeneratoreMostri();
         this.motoreCombattimento = new MotoreCombattimento();
-        this.boss                = new Boss("Signore delle Tenebre", BOSS_HP, BOSS_ATTACCO);
+        this.boss = new Boss("Signore delle Tenebre");
         this.luogoAttuale = Luoghi.VILLAGGIO;
-        this.finePartita         = false;
-        this.giocatoreHaVinto    = false;
+        this.finePartita = false;
+        this.giocatoreHaVinto = false;
     }
+
+            // AZIONI
 
     public boolean spostati(Luoghi destinazione) {
         if (destinazione == Luoghi.PORTALE && !portaleAccessibile()){
@@ -49,33 +38,69 @@ public class StatoGioco {
             return true;
         }
     }
-
     public boolean portaleAccessibile() {
         return giocatore.haTuttiIFrammenti();
     }
-
+    public DTOCombattimento eseguiTurno(EntitaCombattente mostro) {
+        return motoreCombattimento.eseguiTurno(giocatore, mostro);
+    }
+    public DTORicompense elaboraRicompense(Mostro mostro) {
+        return motoreCombattimento.assegnaRicompense(giocatore, mostro);
+    }
+    public boolean riposati() {
+        return locanda.riposaGiocatore(giocatore);
+    }
+    public boolean usaPozione() {
+        return giocatore.usaPozione();
+    }
+    public Mostro generaMostro() {
+        return generatoreMostri.generaMostro();
+    }
     public void terminaPartita(boolean vittoria) {
         this.finePartita = true;
         this.giocatoreHaVinto = vittoria;
     }
-
-    public Giocatore getGiocatore() {
-        return giocatore;
+    public String getNomeGiocatore(){
+        return giocatore.getNome();
     }
-    public Negozio getNegozio(){
-        return negozio;
+    public int getPuntiVitaGiocatore(){
+        return giocatore.getPuntiVita();
     }
-    public Locanda getLocanda(){
-        return locanda;
+    public int getPuntiVitaMassimiGiocatore(){
+        return giocatore.getPuntiVitaMassimi();
     }
-    public GeneratoreMostri getGeneratoreMostri(){
-        return generatoreMostri;
+    public int getOroGiocatore(){
+        return giocatore.getOro();
     }
-    public MotoreCombattimento getMotoreCombattimento(){
-        return motoreCombattimento;
+    public int getLivelloGiocatore(){
+        return giocatore.getLivello();
     }
-    public Boss getBoss(){
-        return boss;
+    public int getEsperienzaGiocatore(){
+        return giocatore.getEsperienza();
+    }
+    public int getEsperienzaPerLivelloGiocatore(){
+        return giocatore.getEsperienzaPerLivello();
+    }
+    public int getFrammentiGiocatore(){
+        return giocatore.getFrammenti();
+    }
+    public int getNumPozioniGiocatore(){
+        return giocatore.getInventario().size();
+    }
+    public String getStatisticheGiocatore(){
+        return giocatore.getStatistiche();
+    }
+    public String getNomeBoss(){
+        return boss.getNome();
+    }
+    public int getPuntiVitaBoss(){
+        return  boss.getPuntiVita();
+    }
+    public int getAttaccoBoss(){
+        return  boss.getAttacco();
+    }
+    public int getCostoRiposo() {
+        return locanda.getCostoRiposo();
     }
     public Luoghi getLuogoAttuale(){
         return luogoAttuale;

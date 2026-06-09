@@ -1,27 +1,21 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti;
 
-import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.TipiOggetti;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.Acquistabile;
+import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.TipiDiOggetti;
 
-public abstract class OggettoBase implements Acquistabile {
+public abstract class OggettoBase {
+    private String nome;
+    private int prezzo;
+    private TipiDiOggetti tipoOggetto;
 
-    private final String nome;
-    private final int prezzo;
-    private final TipiOggetti tipoOggetto;
-
-    public  OggettoBase(String nome, int prezzo, TipiOggetti tipoOggetto) {
+    public OggettoBase(String nome, int prezzo, TipiDiOggetti tipoOggetto) {
         this.nome = nome;
         this.prezzo = prezzo;
-        this.tipoOggetto = tipoOggetto;
+        this.tipoOggetto =  tipoOggetto;
     }
-
     public String getNome() {
         return nome;
     }
     public int getPrezzo() {
         return prezzo;
-    }
-    public TipiOggetti getTipoOggetto() {
-        return tipoOggetto;
     }
 }

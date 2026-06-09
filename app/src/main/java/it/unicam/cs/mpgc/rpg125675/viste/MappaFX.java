@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MappaFX extends Application {
+
     private static final String PERCORSO_FXML = "/gui/Mappa.fxml";
 
     @Override
@@ -25,4 +26,6 @@ public class MappaFX extends Application {
     public static void avviaFx() {
         launch();
     }
+
+
 }
