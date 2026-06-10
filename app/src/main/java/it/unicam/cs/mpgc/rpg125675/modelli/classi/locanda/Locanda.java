@@ -2,25 +2,20 @@ package it.unicam.cs.mpgc.rpg125675.modelli.classi.locanda;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Giocatore;
 
+
 public class Locanda {
 
-    private int costoRiposo;
-
-    public Locanda() {
-        costoRiposo = 20;
-    }
+    private static final int COSTO_RIPOSO = 20;
 
     public int getCostoRiposo() {
-        return costoRiposo;
+        return COSTO_RIPOSO;
     }
 
     public boolean riposaGiocatore(Giocatore giocatore) {
-        if (!giocatore.spendiOro(costoRiposo)){
+        if (!giocatore.spendiOro(COSTO_RIPOSO)) {
             return false;
         }
-        else {
-            giocatore.ripristinaVitaCompleta();
-            return true;
-        }
+        giocatore.ripristinaVitaCompleta();
+        return true;
     }
 }

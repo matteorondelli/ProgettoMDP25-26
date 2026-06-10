@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Giocatore extends EntitaCombattente {
+public class Giocatore extends EntitaCombattente implements Attaccabile {
 
     private int livello;
     private int esperienza;
@@ -19,7 +19,7 @@ public class Giocatore extends EntitaCombattente {
 
     private static final Random rand = new Random();
     private static final int HP_INIZIALI        = 100;
-    private static final int ATTACCO_INIZIALE   = 18;
+    private static final int ATTACCO_INIZIALE   = 10;
     private static final int ORO_INIZIALE       = 50;
     private static final double PROBABILITA_CRITICO = 0.3;
     private static final int MOLTIPLICATORE_CRITICO = 2;
@@ -40,9 +40,9 @@ public class Giocatore extends EntitaCombattente {
     }
 
     public String getStatistiche() {
-        String stats = getNome() +
+        return getNome() +
                 " | Lv " + livello +
-                " | HP " + getPuntiVita() +
+                " | PV " + getPuntiVita() +
                 "/" + getPuntiVitaMassimi() +
                 " | Atk " + getAttacco() +
                 " | Oro " + oro +
@@ -52,7 +52,7 @@ public class Giocatore extends EntitaCombattente {
                 "/" + FRAMMENTI_NECESSARI +
                 " | Pozioni " +inventario.size();
 
-        return stats;
+
     }
 
 
@@ -62,7 +62,7 @@ public class Giocatore extends EntitaCombattente {
     }
 
     private void controllaNuovoLivello(){
-        while(esperienza >= esperienzaPerLivello){
+        if (esperienza >= esperienzaPerLivello){
             esperienza -= esperienzaPerLivello;
             nuovoLivello();
         }
@@ -123,31 +123,22 @@ public class Giocatore extends EntitaCombattente {
         return frammenti >= FRAMMENTI_NECESSARI;
     }
 
+
+
+    @Override
+    public void cura(int quantita) {
+        super.cura(quantita); // chiama il protected della superclasse
+    }
+
+
     public void ripristinaVitaCompleta() {
         cura(getPuntiVitaMassimi());
-    }
-
-    public int getOro() {
-        return oro;
-    }
-
-    public int getFrammenti() {
-        return frammenti;
     }
 
     public int getLivello() {
         return livello;
     }
 
-    public int getEsperienza() {
-        return esperienza;
-    }
 
-    public int getEsperienzaPerLivello() {
-        return esperienzaPerLivello;
-    }
 
-    public List<OggettoBase> getInventario() {
-        return new ArrayList<>(inventario);
-    }
 }

@@ -41,9 +41,10 @@ public abstract class EntitaCombattente implements Attaccabile {
         return puntiVitaMassimi;
     }
 
-    public void cura(int quantita){
+    protected void cura(int quantita) {
         this.puntiVita = Math.min(this.puntiVitaMassimi, this.puntiVita + quantita);
     }
+
 
     public int getAttacco(){
         return attacco;

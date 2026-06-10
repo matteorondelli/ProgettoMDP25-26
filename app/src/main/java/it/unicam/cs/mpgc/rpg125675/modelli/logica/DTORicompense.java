@@ -11,19 +11,23 @@ public class DTORicompense {
     private final int esperienzaGuadagnata;
     private final boolean pozioneOttenuta;
     private final boolean frammentoOttenuto;
+    private final boolean livelloSalito;
 
     public DTORicompense(int oroGuadagnato,
                          int esperienzaGuadagnata,
                          boolean pozioneOttenuta,
-                         boolean frammentoOttenuto) {
+                         boolean frammentoOttenuto,
+                         boolean livelloSalito) {
         this.oroGuadagnato = oroGuadagnato;
         this.esperienzaGuadagnata = esperienzaGuadagnata;
         this.pozioneOttenuta = pozioneOttenuta;
         this.frammentoOttenuto = frammentoOttenuto;
+        this.livelloSalito = livelloSalito;
     }
 
     public int getOroGuadagnato(){ return oroGuadagnato; }
     public int getEsperienzaGuadagnata(){ return esperienzaGuadagnata; }
     public boolean isPozioneOttenuta(){ return pozioneOttenuta; }
     public boolean isFrammentoOttenuto(){ return frammentoOttenuto; }
+    public boolean isLivelloSalito(){ return livelloSalito; }
 }

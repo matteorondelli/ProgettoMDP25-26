@@ -1,12 +1,16 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.locanda.Locanda;
+
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.*;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Luoghi;
+
+
 
 public class StatoGioco {
 
     private final Giocatore giocatore;
+    private Mostro mostroAttuale;
     private final Locanda locanda;
     private final GeneratoreMostri generatoreMostri;
     private final MotoreCombattimento motoreCombattimento;
@@ -18,6 +22,7 @@ public class StatoGioco {
 
     public StatoGioco(String nomeGiocatore) {
         this.giocatore = new Giocatore(nomeGiocatore);
+        this.mostroAttuale = null;
         this.locanda = new Locanda();
         this.generatoreMostri = new GeneratoreMostri();
         this.motoreCombattimento = new MotoreCombattimento();
@@ -27,7 +32,7 @@ public class StatoGioco {
         this.giocatoreHaVinto = false;
     }
 
-            // AZIONI
+
 
     public boolean spostati(Luoghi destinazione) {
         if (destinazione == Luoghi.PORTALE && !portaleAccessibile()){
@@ -60,45 +65,15 @@ public class StatoGioco {
         this.finePartita = true;
         this.giocatoreHaVinto = vittoria;
     }
-    public String getNomeGiocatore(){
-        return giocatore.getNome();
-    }
-    public int getPuntiVitaGiocatore(){
-        return giocatore.getPuntiVita();
-    }
-    public int getPuntiVitaMassimiGiocatore(){
-        return giocatore.getPuntiVitaMassimi();
-    }
-    public int getOroGiocatore(){
-        return giocatore.getOro();
-    }
-    public int getLivelloGiocatore(){
-        return giocatore.getLivello();
-    }
-    public int getEsperienzaGiocatore(){
-        return giocatore.getEsperienza();
-    }
-    public int getEsperienzaPerLivelloGiocatore(){
-        return giocatore.getEsperienzaPerLivello();
-    }
-    public int getFrammentiGiocatore(){
-        return giocatore.getFrammenti();
-    }
-    public int getNumPozioniGiocatore(){
-        return giocatore.getInventario().size();
-    }
+
+
     public String getStatisticheGiocatore(){
         return giocatore.getStatistiche();
     }
-    public String getNomeBoss(){
-        return boss.getNome();
-    }
-    public int getPuntiVitaBoss(){
-        return  boss.getPuntiVita();
-    }
-    public int getAttaccoBoss(){
-        return  boss.getAttacco();
-    }
+
+    public Boss getBoss() { return boss; }
+
+
     public int getCostoRiposo() {
         return locanda.getCostoRiposo();
     }
@@ -111,4 +86,7 @@ public class StatoGioco {
     public boolean isGiocatoreHaVinto(){
         return giocatoreHaVinto;
     }
+
+    public Mostro getMostroAttuale() { return mostroAttuale; }
+    public void impostaMostro(Mostro m) { this.mostroAttuale = m; }
 }
