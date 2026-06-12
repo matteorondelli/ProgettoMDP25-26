@@ -50,7 +50,6 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 application {
-    // Define the main class for the application.
     mainClass = "it.unicam.cs.mpgc.rpg125675.viste.MappaFX"
 }
 

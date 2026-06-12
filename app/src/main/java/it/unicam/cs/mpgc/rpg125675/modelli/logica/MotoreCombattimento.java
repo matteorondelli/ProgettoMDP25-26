@@ -1,26 +1,25 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOAttaccoEseguito;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Pozione;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Boss;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.EntitaCombattente;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Giocatore;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Mostro;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IAttaccante;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IPersonaggioGiocante;
 
 
 public class MotoreCombattimento {
 
-
-    public MotoreCombattimento() {}
-
-    public DTOCombattimento eseguiTurno(Giocatore giocatore, EntitaCombattente nemico) {
+    public DTOCombattimento eseguiTurno(IAttaccante giocatore, EntitaCombattente nemico) {
 
         int dannoCausato;
         boolean attaccoCriticoGiocatore = false;
         if (giocatore.eseguiAttaccoCritico()) {
             dannoCausato = giocatore.getDannoCritico();
             attaccoCriticoGiocatore = true;
-        }
-        else{
+        } else {
             dannoCausato = giocatore.getAttacco();
         }
         nemico.prendiDanno(dannoCausato);
@@ -30,12 +29,9 @@ public class MotoreCombattimento {
         boolean attaccoSpecialeBoss = false;
 
         if (nemico.isVivo()) {
-            if (nemico instanceof Boss boss && boss.eseguiAttaccoSpeciale()) {
-                dannoRicevuto = boss.getDannoAttaccoSpeciale();
-                attaccoSpecialeBoss = true;
-            } else {
-                dannoRicevuto = nemico.getAttacco();
-            }
+            DTOAttaccoEseguito attacco = nemico.eseguiAttacco();
+            dannoRicevuto = attacco.getDanno();
+            attaccoSpecialeBoss = attacco.isSpeciale();
             giocatore.prendiDanno(dannoRicevuto);
         }
 
@@ -50,23 +46,23 @@ public class MotoreCombattimento {
         );
     }
 
-    public DTORicompense assegnaRicompense(Giocatore giocatore, Mostro mostro) {
+    public DTORicompense assegnaRicompense(IPersonaggioGiocante giocatore, Mostro mostro) {
         giocatore.aggiungiOro(mostro.getRicompensaOro());
         int livelloPrima = giocatore.getLivello();
         giocatore.aggiungiEsperienza(mostro.getRicompensaEsperienza());
         boolean livelloSalito = giocatore.getLivello() > livelloPrima;
-        if (mostro.getRicompensaPozione()) {
+        if (mostro.isRicompensaPozione()) {
             giocatore.aggiungiOggetto(new Pozione("Pozione", 0,  30));
         }
-        if (mostro.getRicompensaFrammento()) {
+        if (mostro.isRicompensaFrammento()) {
             giocatore.aggiungiFrammento();
         }
 
         return new DTORicompense(
                 mostro.getRicompensaOro(),
                 mostro.getRicompensaEsperienza(),
-                mostro.getRicompensaPozione(),
-                mostro.getRicompensaFrammento(),
+                mostro.isRicompensaPozione(),
+                mostro.isRicompensaFrammento(),
                 livelloSalito
 
         );

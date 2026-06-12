@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg125675.modelli.logica;
+package it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO;
 
 public class DTOCombattimento {
 
@@ -10,13 +10,9 @@ public class DTOCombattimento {
     private final boolean giocatoreVivo;
     private final boolean nemicoVivo;
 
-    public DTOCombattimento(int dannoCausato,
-                            int dannoRicevuto,
-                            boolean attaccoSpecialeBoss,
-                            boolean attaccoCriticoGiocatore,
-                            int puntiVitaNemicoRimasti,
-                            boolean giocatoreVivo,
-                            boolean nemicoVivo) {
+    public DTOCombattimento(int dannoCausato, int dannoRicevuto, boolean attaccoSpecialeBoss,
+                            boolean attaccoCriticoGiocatore, int puntiVitaNemicoRimasti,
+                            boolean giocatoreVivo, boolean nemicoVivo) {
         this.dannoCausato = dannoCausato;
         this.dannoRicevuto = dannoRicevuto;
         this.attaccoSpecialeBoss = attaccoSpecialeBoss;
@@ -32,7 +28,9 @@ public class DTOCombattimento {
     public int getDannoRicevuto() {
         return dannoRicevuto;
     }
-    public int getPuntiVitaNemicoRimasti() {return puntiVitaNemicoRimasti;}
+    public int getPuntiVitaNemicoRimasti() {
+        return puntiVitaNemicoRimasti;
+    }
     public boolean isAttaccoSpecialeBoss() {
         return attaccoSpecialeBoss;
     }

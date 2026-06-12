@@ -1,16 +1,16 @@
 package it.unicam.cs.mpgc.rpg125675.controlli;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.EntitaCombattente;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.DTOCombattimento;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.DTORicompense;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.StatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGiocoLettura;
 
 
 public class GestoreUI  {
-    private StatoGioco statoGioco;
+    private IStatoGiocoLettura statoGioco;
 
 
-    public GestoreUI(StatoGioco statoGioco) {
+    public GestoreUI(IStatoGiocoLettura statoGioco) {
         this.statoGioco = statoGioco;
     }
 
@@ -20,21 +20,22 @@ public class GestoreUI  {
 
     public String menuEsplorazione() {
         return switch (statoGioco.getLuogoAttuale()) {
-            case VILLAGGIO -> " === VILLAGGIO ===\n " +
+            case VILLAGGIO -> "VILLAGGIO\n\n " +
                     "1. Vai nella foresta\n " +
-                    "2. Riposa alla locanda (costo:" + statoGioco.getCostoRiposo() + ")\n ";
-            case FORESTA -> " === FORESTA === \n " +
+                    "2. Riposa alla locanda (costo:" + statoGioco.getCostoRiposo() + ")\n " +
+                    "3. Salva partita\n ";
+            case FORESTA -> "FORESTA\n\n " +
                     "1. Caccia\n " +
                     "2. Vai al portale (solo con 3 frammenti)\n " +
                     "3. Torna al villaggio\n" ;
-            case PORTALE -> " === PORTALE === \n " +
+            case PORTALE -> "PORTALE\n\n " +
                     "1. Affronta il boss \n " +
                     "2. Torna al villaggio\n ";
         };
     }
 
     public String menuCombattimento() {
-        return " === COMBATTIMENTO ===\n 1. Attacca\n 2. Usa pozione\n ";
+        return "COMBATTIMENTO\n\n 1. Attacca\n 2. Usa pozione\n ";
     }
 
     public String formattaCombattimento(DTOCombattimento dtoC) {
@@ -111,6 +112,9 @@ public class GestoreUI  {
 
     public String messaggioSconfitta() {
         return "Sei stato sconfitto...";
+    }
+    public String messaggioSalvataggio() {
+        return "Partita salvata.";
     }
 
 

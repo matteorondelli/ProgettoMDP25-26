@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class MappaFX extends Application {
 
-    private static final String PERCORSO_FXML = "/gui/Mappa.fxml";
+    private static final String PERCORSO_FXML = "/it.unicam.cs.mpgc.rpg125675/viste/Mappa.fxml";
 
     @Override
     public void start(Stage stage) throws Exception {

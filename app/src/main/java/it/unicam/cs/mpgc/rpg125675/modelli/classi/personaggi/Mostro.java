@@ -21,7 +21,7 @@ public class Mostro extends EntitaCombattente {
         return ricompensaOro;
     }
 
-    public boolean getRicompensaFrammento() {
+    public boolean isRicompensaFrammento() {
         return ricompensaFrammento;
     }
 
@@ -29,7 +29,7 @@ public class Mostro extends EntitaCombattente {
         return ricompensaEsperienza;
     }
 
-    public boolean getRicompensaPozione() {
+    public boolean isRicompensaPozione() {
         return ricompensaPozione;
     }
 }

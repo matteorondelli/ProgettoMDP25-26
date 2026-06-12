@@ -1,21 +1,28 @@
 package it.unicam.cs.mpgc.rpg125675.controlli;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Mostro;
+import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Fasi;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Luoghi;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.DTOCombattimento;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.DTORicompense;
-import it.unicam.cs.mpgc.rpg125675.modelli.logica.StatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IGestoreSalvataggio;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.util.ConvertitoreSalvataggio;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
 
 public class GestoreComandi {
 
-    private GestoreUI gestoreUI;
-    private StatoGioco statoGioco;
+    private final GestoreUI gestoreUI;
+    private final IStatoGioco statoGioco;
     private Fasi faseCorrente;
+    private final IGestoreSalvataggio gestoreSalvataggio;
 
-    public GestoreComandi(GestoreUI gestoreUI, StatoGioco statoGioco, Fasi faseIniziale) {
+    public GestoreComandi(GestoreUI gestoreUI, IStatoGioco statoGioco,
+                          Fasi faseIniziale, IGestoreSalvataggio gestoreSalvataggio) {
         this.gestoreUI = gestoreUI;
         this.statoGioco = statoGioco;
         this.faseCorrente = faseIniziale;
+        this.gestoreSalvataggio = gestoreSalvataggio;
     }
 
 
@@ -44,8 +51,15 @@ public class GestoreComandi {
         return switch (input.trim()) {
             case "1" -> vaiInForesta();
             case "2" -> riposatiAllaLocanda();
+            case "3" -> salvaPartita();
             default  -> "Scelta non valida.\n" + gestoreUI.menuEsplorazione();
         };
+    }
+
+    private String salvaPartita() {
+        DTOSalvataggio dto = ConvertitoreSalvataggio.daStato(statoGioco);
+        gestoreSalvataggio.salva(dto);
+        return gestoreUI.messaggioSalvataggio() + "\n\n" + gestoreUI.menuEsplorazione();
     }
 
     private String vaiInForesta() {

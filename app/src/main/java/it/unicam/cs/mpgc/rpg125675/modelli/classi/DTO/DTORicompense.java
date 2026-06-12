@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg125675.modelli.logica;
+package it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO;
 
 /**
  * DTO immutabile che trasporta i risultati delle ricompense
@@ -13,11 +13,8 @@ public class DTORicompense {
     private final boolean frammentoOttenuto;
     private final boolean livelloSalito;
 
-    public DTORicompense(int oroGuadagnato,
-                         int esperienzaGuadagnata,
-                         boolean pozioneOttenuta,
-                         boolean frammentoOttenuto,
-                         boolean livelloSalito) {
+    public DTORicompense(int oroGuadagnato, int esperienzaGuadagnata, boolean pozioneOttenuta,
+                         boolean frammentoOttenuto, boolean livelloSalito) {
         this.oroGuadagnato = oroGuadagnato;
         this.esperienzaGuadagnata = esperienzaGuadagnata;
         this.pozioneOttenuta = pozioneOttenuta;
@@ -25,9 +22,19 @@ public class DTORicompense {
         this.livelloSalito = livelloSalito;
     }
 
-    public int getOroGuadagnato(){ return oroGuadagnato; }
-    public int getEsperienzaGuadagnata(){ return esperienzaGuadagnata; }
-    public boolean isPozioneOttenuta(){ return pozioneOttenuta; }
-    public boolean isFrammentoOttenuto(){ return frammentoOttenuto; }
-    public boolean isLivelloSalito(){ return livelloSalito; }
+    public int getOroGuadagnato(){
+        return oroGuadagnato;
+    }
+    public int getEsperienzaGuadagnata(){
+        return esperienzaGuadagnata;
+    }
+    public boolean isPozioneOttenuta(){
+        return pozioneOttenuta;
+    }
+    public boolean isFrammentoOttenuto(){
+        return frammentoOttenuto;
+    }
+    public boolean isLivelloSalito(){
+        return livelloSalito;
+    }
 }

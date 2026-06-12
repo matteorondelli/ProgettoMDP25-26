@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.util;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Mostro;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.ICaricatoreMostri;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,15 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
 
-public class CaricaDaJson {
+public class CaricaDaJson implements ICaricatoreMostri {
 
     private static final String PERCORSO_MOSTRI= "/mostri/Mostri.json";
 
 
-    private CaricaDaJson() {}
-
-
-    private static JsonArray leggiJson(String percorsoFile, String tipo) {
+    private JsonArray leggiJson(String percorsoFile, String tipo) {
         try (InputStream stream = CaricaDaJson.class.getResourceAsStream(percorsoFile)) {
             if (stream == null) {
                 throw new IllegalStateException("File non trovato: " + percorsoFile);
@@ -31,7 +29,8 @@ public class CaricaDaJson {
     }
 
 
-    public static List<Mostro> caricaMostri() {
+    @Override
+    public List<Mostro> caricaMostri() {
         JsonArray array = leggiJson(PERCORSO_MOSTRI, "mostri");
         List<Mostro> mostri = new ArrayList<>();
         for (JsonElement elemento : array) {
@@ -40,13 +39,13 @@ public class CaricaDaJson {
         return mostri;
     }
 
-    private static Mostro creaMostro(JsonObject obj) {
+    private Mostro creaMostro(JsonObject obj) {
         String nome    = obj.get("nome").getAsString();
         int puntiVita  = obj.get("puntiVita").getAsInt();
         int attacco    = obj.get("attacco").getAsInt();
         int oro        = obj.get("oro").getAsInt();
         int esperienza = obj.get("esperienza").getAsInt();
         return new Mostro(nome, puntiVita, attacco, oro, esperienza, false, false);
-       
+
     }
 }

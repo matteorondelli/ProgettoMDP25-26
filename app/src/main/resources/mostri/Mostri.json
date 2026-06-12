@@ -1,7 +1,12 @@
 {
   "mostri": [
     {"nome": "Goblin","puntiVita": 20, "attacco": 5, "oro": 10, "esperienza": 30},
-    {"nome": "Orco","puntiVita": 40, "attacco": 10, "oro": 20, "esperienza": 50}
-
+    {"nome": "Orco","puntiVita": 40, "attacco": 10, "oro": 20, "esperienza": 50},
+    {"nome": "Lupo Selvatico","puntiVita": 25, "attacco": 8, "oro": 12, "esperienza": 35},
+    {"nome": "Scheletro","puntiVita": 30, "attacco": 9, "oro": 15, "esperienza": 40},
+    {"nome": "Troll","puntiVita": 60, "attacco": 14, "oro": 35, "esperienza": 70},
+    {"nome": "Bandito","puntiVita": 35, "attacco": 11, "oro": 25, "esperienza": 45},
+    {"nome": "Ragno Gigante","puntiVita": 22, "attacco": 7, "oro": 8, "esperienza": 28},
+    {"nome": "Strega della Foresta","puntiVita": 45, "attacco": 13, "oro": 30, "esperienza": 60}
   ]
 }
