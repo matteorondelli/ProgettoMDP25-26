@@ -30,7 +30,7 @@ public class MappaFX extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(PERCORSO_FXML));
         Parent root = loader.load();
         Scene scene = new Scene(root, 800, 600);
-        stage.setTitle("RPG - MDP 25/26");
+        stage.setTitle("IL PORTALE DIMENTICATO");
         stage.setMinWidth(650);
         stage.setMinHeight(450);
         stage.setScene(scene);

@@ -1,11 +1,12 @@
-# 📌 Nome del Progetto
+# IL PORTALE DIMENTICATO
 
-Breve descrizione del progetto (2-3 righe):  
-Spiega cosa fa il programma e a cosa serve.
+RPG testuale a turni, con interfaccia grafica JavaFX.
+Il giocatore, partendo dal villaggio, affronta nemici nella foresta per
+allenarsi e recuperare i frammenti del portale che gli servono per sfidare il Signore Delle Tenebre.
 
 ---
 
-## 🚀 Come eseguire il progetto
+## Come eseguire il progetto
 
 ### Prerequisiti
 - Java 25 (LTS)
