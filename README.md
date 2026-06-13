@@ -42,6 +42,32 @@ cd ProgettoMDP25-26
 
 ---
 
+## Struttura del progetto
+
+```bash
+app/src/main/java/it/unicam/cs/mpgc/rpg125675/
+
+├── Main.java                  
+├── controlli/                 
+├── viste/                      
+└── modelli/
+      ├── classi/
+      │   ├── personaggi/         
+      │   ├── oggetti/            
+      │   ├── luoghi/             
+      │   └── DTO/                 
+      ├── interfacce/
+      ├── enumerazioni/               
+      ├── logica/                  
+      └── util/                   
+app/src/main/resources/
+├── it.unicam.cs.mpgc.rpg125675/viste/  
+|     └── Mappa.fxml   
+└── mostri/
+      └── Mostri.json                              
+```
+---
+
 ##  Uso di strumenti di AI
 
 Durante lo sviluppo sono stati utilizzati Claude e Gemini come supporti AI.
