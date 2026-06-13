@@ -5,19 +5,42 @@ import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
 import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGiocoLettura;
 
-
+/**
+ * Responsabile della formattazione testuale dei messaggi e dei
+ * menu mostrati all'utente.
+ *
+ * Dipende esclusivamente da {@link IStatoGiocoLettura}, in modo da poter
+ * leggere le informazioni necessarie alla formattazione senza poter modificare lo stato di gioco.
+ */
 public class FormattaTesto {
     private final IStatoGiocoLettura statoGioco;
 
-
+    /**
+     * Crea un nuovo gestore dell'interfaccia testuale.
+     *
+     * @param statoGioco vista in sola lettura dello stato di gioco da cui
+     *                    ottenere le informazioni da mostrare
+     */
     public FormattaTesto(IStatoGiocoLettura statoGioco) {
         this.statoGioco = statoGioco;
     }
 
+    /**
+     * Restituisce la rappresentazione testuale aggiornata delle statistiche
+     * del giocatore.
+     *
+     * @return statistiche del giocatore formattate come stringa
+     */
     public String aggiornaStatistiche() {
         return statoGioco.getStatisticheGiocatore();
     }
 
+    /**
+     * Costruisce il testo del menu di esplorazione appropriato per il
+     * luogo in cui si trova attualmente il giocatore.
+     *
+     * @return testo del menu di esplorazione per il luogo corrente
+     */
     public String menuEsplorazione() {
         return switch (statoGioco.getLuogoAttuale()) {
             case VILLAGGIO -> "VILLAGGIO\n\n " +
@@ -34,10 +57,21 @@ public class FormattaTesto {
         };
     }
 
+    /**
+     * Costruisce il testo del menu mostrato durante un combattimento.
+     *
+     * @return testo del menu di combattimento
+     */
     public String menuCombattimento() {
         return "COMBATTIMENTO\n\n 1. Attacca\n 2. Usa pozione\n ";
     }
 
+    /**
+     * Costruisce il testo descrittivo dell'esito di un turno di combattimento
+     *
+     * @param dtoC esito del turno di combattimento da formattare
+     * @return descrizione testuale dell'esito del turno
+     */
     public String formattaCombattimento(DTOCombattimento dtoC) {
         StringBuilder risultatoCombattimento = new StringBuilder();
 
@@ -65,6 +99,12 @@ public class FormattaTesto {
         return risultatoCombattimento.toString();
     }
 
+    /**
+     * Costruisce il testo descrittivo delle ricompense ottenute dal giocatore.
+     *
+     * @param dtoR dettaglio delle ricompense da formattare
+     * @return descrizione testuale delle ricompense ottenute
+     */
     public String formattaRicompense(DTORicompense dtoR) {
         StringBuilder ricompense = new StringBuilder();
 
@@ -85,14 +125,26 @@ public class FormattaTesto {
         return ricompense.toString();
     }
 
+    /**
+     * Costruisce il testo del messaggio mostrato quando il giocatore
+     * incontra un'entità nemica.
+     *
+     * @param entita entità nemica incontrata (mostro o boss)
+     * @return descrizione testuale dell'entità incontrata
+     */
     public String messaggioMostroIncontrato(EntitaCombattente entita) {
         return "Ti si para davanti: " + entita.getNome() +
                 " | PV " + entita.getPuntiVita() +
                 " | Atk " + entita.getAttacco();
     }
 
-
-
+    /**
+     * Costruisce il testo del messaggio relativo al tentativo di riposo alla locanda.
+     *
+     * @param riuscito {@code true} se il riposo è avvenuto con successo
+     * @param costo costo in oro del riposo
+     * @return descrizione testuale dell'esito del riposo
+     */
     public String messaggioLocanda(boolean riuscito, int costo) {
         if (riuscito) {
             return "Hai riposato alla locanda per " + costo + " oro. Vita ripristinata!";
@@ -101,19 +153,42 @@ public class FormattaTesto {
         }
     }
 
+    /**
+     * Costruisce il testo del messaggio mostrato quando il giocatore tenta
+     * di accedere al portale senza possedere tutti i frammenti necessari.
+     *
+     * @return descrizione testuale dell'accesso negato al portale
+     */
     public String messaggioPortaleChiuso() {
         return "Hai bisogno di 3 frammenti per accedere al portale.";
 
     }
 
+    /**
+     * Costruisce il testo del messaggio di vittoria finale, mostrato dopo
+     * la sconfitta del boss.
+     *
+     * @return messaggio di vittoria
+     */
     public String messaggioVittoria() {
         return "COMPLIMENTI!!! Hai sconfitto il boss";
     }
 
+    /**
+     * Costruisce il testo del messaggio di sconfitta finale, mostrato dopo
+     * la sconfitta del giocatore.
+     *
+     * @return messaggio di sconfitta
+     */
     public String messaggioSconfitta() {
         return "Sei stato sconfitto";
     }
 
+    /**
+     * Costruisce il testo del messaggio di conferma del salvataggio della partita.
+     *
+     * @return messaggio di conferma del salvataggio
+     */
     public String messaggioSalvataggio() {
         return "Partita salvata.";
     }
