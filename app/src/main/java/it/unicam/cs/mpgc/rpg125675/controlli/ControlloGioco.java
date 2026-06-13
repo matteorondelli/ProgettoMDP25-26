@@ -10,6 +10,7 @@ import it.unicam.cs.mpgc.rpg125675.modelli.util.CaricaDaJson;
 import it.unicam.cs.mpgc.rpg125675.modelli.util.ConvertitoreSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.util.GestoreSalvataggio;
+import it.unicam.cs.mpgc.rpg125675.viste.FormattaTesto;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;

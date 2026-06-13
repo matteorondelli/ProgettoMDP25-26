@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg125675.controlli;
+package it.unicam.cs.mpgc.rpg125675.viste;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.EntitaCombattente;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;

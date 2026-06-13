@@ -9,6 +9,7 @@ import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IGestoreSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGioco;
 import it.unicam.cs.mpgc.rpg125675.modelli.util.ConvertitoreSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
+import it.unicam.cs.mpgc.rpg125675.viste.FormattaTesto;
 
 /**
  * Responsabile dell'interpretazione dei comandi testuali
