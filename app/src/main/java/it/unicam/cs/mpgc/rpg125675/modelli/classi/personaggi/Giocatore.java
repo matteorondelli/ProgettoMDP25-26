@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Rappresenta il personaggio controllato dal giocatore.
+ */
 public class Giocatore extends EntitaCombattente implements IAttaccante, IPersonaggioGiocante {
 
     private int livello;
@@ -30,6 +33,12 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
     private static final int PUNTIVITA_PER_LIVELLO = 10;
     private static final int ATTACCO_PER_LIVELLO = 5;
 
+    /**
+     * Crea un nuovo giocatore con il nome specificato e le statistiche
+     * iniziali di default.
+     *
+     * @param nome nome del personaggio
+     */
     public Giocatore(String nome) {
         super(nome, HP_INIZIALI, ATTACCO_INIZIALE);
         this.oro = ORO_INIZIALE;
@@ -40,6 +49,11 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         this.esperienzaPerLivello = ESPERIENZA_BASE;
     }
 
+    /**
+     * Restituisce una stringa delle statistiche del giocatore.
+     *
+     * @return statistiche del giocatore formattate come stringa
+     */
     public String getStatistiche() {
         return " " + getNome() +
                 " | Lv " + livello +
@@ -54,17 +68,30 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
                 " | Pozioni " + inventario.size();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Aggiunge all'inventario una pozione standard con quantità di cura fissa.
+     */
     @Override
     public void aggiungiPozione() {
         inventario.add(new Pozione("Pozione", 0, 30));
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Aggiunge esperienza e controlla se il giocatore sale di livello
+     */
     @Override
     public void aggiungiEsperienza(int quantita) {
         this.esperienza += quantita;
         controllaNuovoLivello();
     }
 
+    /**
+     * Verifica se con l'esperienza guadagnata il giocatore sale di livello
+     */
     private void controllaNuovoLivello() {
         if (esperienza >= esperienzaPerLivello) {
             esperienza -= esperienzaPerLivello;
@@ -72,6 +99,10 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         }
     }
 
+    /**
+     * Avanza di livello il giocatore. Aumenta la soglia di esperienza per il prossimo livello,
+     * i punti vita massimi, l'attacco e ripristina la vita del giocatore al massimo
+     */
     private void nuovoLivello() {
         livello++;
         esperienzaPerLivello = livello * ESPERIENZA_BASE;
@@ -80,16 +111,35 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         cura(getPuntiVitaMassimi());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Il colpo critico ha una probabilità fissa già stabilita.
+     */
     @Override
     public boolean eseguiAttaccoCritico() {
         return rand.nextDouble() < PROBABILITA_CRITICO;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Il danno critico è pari all'attacco corrente moltiplicato per
+     * {@link #MOLTIPLICATORE_CRITICO}.
+     */
     @Override
     public int getDannoCritico() {
         return getAttacco() * MOLTIPLICATORE_CRITICO;
     }
 
+    /**
+     * Utilizza la prima pozione disponibile nell'inventario, curando il
+     * giocatore della quantità corrispondente e rimuovendo la pozione
+     * dall'inventario.
+     *
+     * @return {@code true} se una pozione è stata trovata e utilizzata,
+     *         {@code false} se l'inventario non contiene pozioni
+     */
     public boolean usaPozione() {
         for (OggettoBase oggetto : inventario) {
             if (oggetto instanceof Pozione pozione) {
@@ -101,11 +151,17 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void aggiungiOggetto(OggettoBase oggetto) {
         inventario.add(oggetto);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean spendiOro(int quantita) {
         if (oro < quantita) return false;
@@ -113,50 +169,85 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void aggiungiOro(int quantita) {
         this.oro += quantita;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Il numero di frammenti non supera mai {@link #FRAMMENTI_NECESSARI}.
+     */
     @Override
     public void aggiungiFrammento() {
         if (frammenti < FRAMMENTI_NECESSARI) frammenti++;
     }
 
+    /**
+     * Verifica se il giocatore possiede tutti i frammenti necessari per
+     * accedere al portale.
+     *
+     * @return {@code true} se il numero di frammenti posseduti è sufficiente, {@code false} altrimenti
+     */
     public boolean haTuttiIFrammenti() {
         return frammenti >= FRAMMENTI_NECESSARI;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void ripristinaVitaCompleta() {
         cura(getPuntiVitaMassimi());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getLivello() {
         return livello;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getEsperienza() {
         return esperienza;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getEsperienzaPerLivello() {
         return esperienzaPerLivello;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getOro() {
         return oro;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getFrammenti() {
         return frammenti;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Integer> getInventarioPozioni() {
         List<Integer> cure = new ArrayList<>();
@@ -168,6 +259,11 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         return cure;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Ripristina il giocatore a partire dai dati contenuti nel DTO di salvataggio.
+     */
     @Override
     public void ripristinaDaSalvataggio(DTOSalvataggio dto) {
         this.livello = dto.getLivello();
@@ -176,10 +272,8 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         this.oro = dto.getOro();
         this.frammenti = dto.getFrammenti();
 
-        // Supponendo che EntitaCombattente esponga questi metodi per impostare lo stato
         impostaPuntiVita(dto.getPuntiVitaMassimi(), dto.getPuntiVita());
         impostaAttacco(dto.getAttacco());
-
         this.inventario.clear();
         for (int cura : dto.getPozioniCura()) {
             this.inventario.add(new Pozione("Pozione", 0, cura));
