@@ -15,8 +15,8 @@ allenarsi e recuperare i frammenti del portale che gli servono per sfidare il Si
 ### Istruzioni
 
 ```bash
-git clone <url-del-repository>
-cd <nome-cartella>
+git clone https://github.com/matteorondelli/ProgettoMDP25-26.git
+cd ProgettoMDP25-26
 ```
 
 ### Build del progetto
@@ -30,48 +30,38 @@ cd <nome-cartella>
 ```
 
 ---
+# Funzionalità principali
 
-## 🤖 Uso di strumenti di AI
-
-Indicare **se e come** sono stati utilizzati strumenti di AI (es. ChatGPT, Copilot, ecc.).
-Descrivere in modo chiaro **per quali attività** e **con quale livello di intervento personale**.
-
-È importante dimostrare che:
-* il codice è stato **compreso**
-* l’AI è stata usata come **supporto**, non come sostituto
----
-
-📌 Per una descrizione più dettagliata dell’uso dell’AI, utilizzare la **Wiki del repository**.
-
-
-### Esempi :
-
-* Utilizzato ChatGPT per:
-
-  * comprendere concetti teorici (es. differenza tra classi e oggetti)
-  * chiarire errori di compilazione
-  * suggerimenti su struttura del codice
-
-* Utilizzato Copilot per:
-
-  * autocompletamento di metodi semplici
-  * generazione di codice ripetitivo (es. getter/setter)
-
-* Utilizzato ChatGPT per generare una prima versione di una funzione, poi:
-
-  * modificata e adattata manualmente
-  * testata e corretta personalmente
+ - Creazione di un nuovo personaggio o caricamento di una partita salvata
+ - Utilizzo di una GUI JavaFX
+ - Esplorazione di tre luoghi: Villaggio, Foresta, Portale
+ - Combattimento a turni contro mostri e boss finale, caricati da file JSON
+ - Sistema di progressione: livelli, esperienza, attacco e punti vita crescenti
+ - Gestione di oro, pozioni curative e frammenti necessari per accedere al portale
+ - Salvataggio e caricamento della partita su file JSON
 
 ---
 
-Oppure:
-- Non sono stati utilizzati strumenti di AI
+##  Uso di strumenti di AI
+
+Durante lo sviluppo sono stati utilizzati Claude e Gemini come supporti AI.
+
+ - Gemini: 
+   - Discussione sull'iniziale struttura logica del progetto
+   - Definizione primi requisiti per l'applicazione
+ - Claude:
+   - Supporto per la scrittura del codice 
+   - Aiuto nelle decisioni riguardanti alternative di progettazione
+   - Aiuto nel comprendere e implementare al meglio i principi SOLID
+   - Revisione codice scritto e suggerimenti progettuali e per la leggibilità
+
+Tutto il codice prodotto con il supporto dell'AI è stato letto,
+compreso e modificato personalmente.
+Le scelte progettuali e di codice sono state validate dallo studente.
 
 ---
 
-
-## ⚠️ Nota
-
-Questo è un template: **modificare e adattare tutte le parti necessarie** in base al proprio progetto
+# Autore
+## Matteo Rondelli - Matricola 125675
 
 
