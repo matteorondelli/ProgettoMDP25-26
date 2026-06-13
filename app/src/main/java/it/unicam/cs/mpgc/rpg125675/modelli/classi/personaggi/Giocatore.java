@@ -41,7 +41,7 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
     }
 
     public String getStatistiche() {
-        return getNome() +
+        return " " + getNome() +
                 " | Lv " + livello +
                 " | PV " + getPuntiVita() +
                 "/" + getPuntiVitaMassimi() +
@@ -52,6 +52,11 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
                 " | Frammenti " + frammenti +
                 "/" + FRAMMENTI_NECESSARI +
                 " | Pozioni " + inventario.size();
+    }
+
+    @Override
+    public void aggiungiPozione() {
+        inventario.add(new Pozione("Pozione", 0, 30));
     }
 
     @Override
@@ -163,6 +168,7 @@ public class Giocatore extends EntitaCombattente implements IAttaccante, IPerson
         return cure;
     }
 
+    @Override
     public void ripristinaDaSalvataggio(DTOSalvataggio dto) {
         this.livello = dto.getLivello();
         this.esperienza = dto.getEsperienza();

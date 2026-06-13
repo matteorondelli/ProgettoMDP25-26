@@ -6,11 +6,11 @@ import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
 import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGiocoLettura;
 
 
-public class GestoreUI  {
-    private IStatoGiocoLettura statoGioco;
+public class FormattaTesto {
+    private final IStatoGiocoLettura statoGioco;
 
 
-    public GestoreUI(IStatoGiocoLettura statoGioco) {
+    public FormattaTesto(IStatoGiocoLettura statoGioco) {
         this.statoGioco = statoGioco;
     }
 
@@ -107,12 +107,13 @@ public class GestoreUI  {
     }
 
     public String messaggioVittoria() {
-        return "Hai sconfitto il boss";
+        return "COMPLIMENTI!!! Hai sconfitto il boss";
     }
 
     public String messaggioSconfitta() {
-        return "Sei stato sconfitto...";
+        return "Sei stato sconfitto";
     }
+
     public String messaggioSalvataggio() {
         return "Partita salvata.";
     }

@@ -8,5 +8,8 @@
     {"nome": "Bandito","puntiVita": 35, "attacco": 11, "oro": 25, "esperienza": 45},
     {"nome": "Ragno Gigante","puntiVita": 22, "attacco": 7, "oro": 8, "esperienza": 28},
     {"nome": "Strega della Foresta","puntiVita": 45, "attacco": 13, "oro": 30, "esperienza": 60}
-  ]
+  ],
+  "boss": {
+    "nome": "Signore delle tenebre", "puntiVita": 150, "attacco": 20, "oro": 200, "esperienza": 100
+  }
 }

@@ -2,14 +2,12 @@ package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.luoghi.Locanda;
+
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.*;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Luoghi;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IGeneratoreMostri;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.ILocanda;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IPersonaggioGiocante;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.*;
+
 
 
 public class StatoGioco implements IStatoGioco {
@@ -24,13 +22,16 @@ public class StatoGioco implements IStatoGioco {
     private boolean finePartita;
     private boolean giocatoreHaVinto;
 
-    public StatoGioco(String nomeGiocatore) {
+    public StatoGioco(String nomeGiocatore, ILocanda locanda,
+                      IGeneratoreMostri generatoreMostri,
+                      MotoreCombattimento motoreCombattimento,
+                      ICaricatoreMostri caricatoreMostri) {
         this.giocatore = new Giocatore(nomeGiocatore);
         this.mostroAttuale = null;
-        this.locanda = new Locanda();
-        this.generatoreMostri = new GeneratoreMostri();
-        this.motoreCombattimento = new MotoreCombattimento();
-        this.boss = new Boss("Signore delle Tenebre");
+        this.locanda = locanda;
+        this.generatoreMostri = generatoreMostri;
+        this.motoreCombattimento = motoreCombattimento;
+        this.boss = caricatoreMostri.caricaBoss();
         this.luogoAttuale = Luoghi.VILLAGGIO;
         this.finePartita = false;
         this.giocatoreHaVinto = false;
@@ -59,7 +60,7 @@ public class StatoGioco implements IStatoGioco {
     }
 
     @Override
-    public DTORicompense elaboraRicompense(Mostro mostro) {
+    public DTORicompense elaboraRicompense(IRicompensante mostro) {
         return motoreCombattimento.assegnaRicompense(giocatore, mostro);
     }
 

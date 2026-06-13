@@ -12,14 +12,14 @@ import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
 
 public class GestoreComandi {
 
-    private final GestoreUI gestoreUI;
+    private final FormattaTesto formattaTesto;
     private final IStatoGioco statoGioco;
     private Fasi faseCorrente;
     private final IGestoreSalvataggio gestoreSalvataggio;
 
-    public GestoreComandi(GestoreUI gestoreUI, IStatoGioco statoGioco,
+    public GestoreComandi(FormattaTesto formattaTesto, IStatoGioco statoGioco,
                           Fasi faseIniziale, IGestoreSalvataggio gestoreSalvataggio) {
-        this.gestoreUI = gestoreUI;
+        this.formattaTesto = formattaTesto;
         this.statoGioco = statoGioco;
         this.faseCorrente = faseIniziale;
         this.gestoreSalvataggio = gestoreSalvataggio;
@@ -52,25 +52,25 @@ public class GestoreComandi {
             case "1" -> vaiInForesta();
             case "2" -> riposatiAllaLocanda();
             case "3" -> salvaPartita();
-            default  -> "Scelta non valida.\n" + gestoreUI.menuEsplorazione();
+            default  -> "Scelta non valida.\n" + formattaTesto.menuEsplorazione();
         };
     }
 
     private String salvaPartita() {
         DTOSalvataggio dto = ConvertitoreSalvataggio.daStato(statoGioco);
         gestoreSalvataggio.salva(dto);
-        return gestoreUI.messaggioSalvataggio() + "\n\n" + gestoreUI.menuEsplorazione();
+        return formattaTesto.messaggioSalvataggio() + "\n\n" + formattaTesto.menuEsplorazione();
     }
 
     private String vaiInForesta() {
         statoGioco.spostati(Luoghi.FORESTA);
-        return gestoreUI.menuEsplorazione();
+        return formattaTesto.menuEsplorazione();
     }
 
     private String riposatiAllaLocanda() {
         boolean riuscito = statoGioco.riposati();
-        return gestoreUI.messaggioLocanda(riuscito, statoGioco.getCostoRiposo())
-                + "\n\n" + gestoreUI.menuEsplorazione();
+        return formattaTesto.messaggioLocanda(riuscito, statoGioco.getCostoRiposo())
+                + "\n\n" + formattaTesto.menuEsplorazione();
     }
 
 
@@ -80,7 +80,7 @@ public class GestoreComandi {
             case "1" -> caccia();
             case "2" -> provaAccessoPortale();
             case "3" -> tornaAlVillaggio();
-            default  -> "Scelta non valida.\n" + gestoreUI.menuEsplorazione();
+            default  -> "Scelta non valida.\n" + formattaTesto.menuEsplorazione();
         };
     }
 
@@ -88,20 +88,20 @@ public class GestoreComandi {
         Mostro mostro = statoGioco.generaMostro();
         statoGioco.impostaMostro(mostro);
         faseCorrente = Fasi.COMBATTIMENTO;
-        return gestoreUI.messaggioMostroIncontrato(mostro)
-                + "\n\n" + gestoreUI.menuCombattimento();
+        return formattaTesto.messaggioMostroIncontrato(mostro)
+                + "\n\n" + formattaTesto.menuCombattimento();
     }
 
     private String provaAccessoPortale() {
         boolean spostato = statoGioco.spostati(Luoghi.PORTALE);
-        if (spostato) return gestoreUI.menuEsplorazione();
-        return gestoreUI.messaggioPortaleChiuso() + "\n\n"
-                + gestoreUI.menuEsplorazione();
+        if (spostato) return formattaTesto.menuEsplorazione();
+        return formattaTesto.messaggioPortaleChiuso() + "\n\n"
+                + formattaTesto.menuEsplorazione();
     }
 
     private String tornaAlVillaggio() {
         statoGioco.spostati(Luoghi.VILLAGGIO);
-        return gestoreUI.menuEsplorazione();
+        return formattaTesto.menuEsplorazione();
     }
 
 
@@ -111,14 +111,14 @@ public class GestoreComandi {
         return switch (input.trim()) {
             case "1" -> combattimentoBoss();
             case "2" -> tornaAlVillaggio();
-            default  -> "Scelta non valida.\n\n" + gestoreUI.menuEsplorazione();
+            default  -> "Scelta non valida.\n\n" + formattaTesto.menuEsplorazione();
         };
     }
 
     private String combattimentoBoss() {
         faseCorrente = Fasi.COMBATTIMENTO_BOSS;
-        return gestoreUI.messaggioMostroIncontrato(statoGioco.getBoss())
-                + "\n\n" + gestoreUI.menuCombattimento();
+        return formattaTesto.messaggioMostroIncontrato(statoGioco.getBoss())
+                + "\n\n" + formattaTesto.menuCombattimento();
     }
 
 
@@ -128,7 +128,7 @@ public class GestoreComandi {
         return switch (input.trim()) {
             case "1" -> attacca();
             case "2" -> usaPozione();
-            default  -> "Scelta non valida.\n" + gestoreUI.menuCombattimento();
+            default  -> "Scelta non valida.\n" + formattaTesto.menuCombattimento();
         };
     }
 
@@ -136,26 +136,26 @@ public class GestoreComandi {
         DTOCombattimento dto = statoGioco.eseguiTurno(statoGioco.getMostroAttuale());
         if (!dto.isGiocatoreVivo()) return gestisciSconfitta(dto);
         if (!dto.isNemicoVivo()) return gestisciVittoria(dto);
-        return gestoreUI.formattaCombattimento(dto) + "\n\n" + gestoreUI.menuCombattimento();
+        return formattaTesto.formattaCombattimento(dto) + "\n\n" + formattaTesto.menuCombattimento();
     }
     private String gestisciSconfitta(DTOCombattimento dto) {
         statoGioco.terminaPartita(false);
         faseCorrente = Fasi.FINE_PARTITA;
-        return gestoreUI.formattaCombattimento(dto);
+        return formattaTesto.formattaCombattimento(dto);
     }
     private String gestisciVittoria(DTOCombattimento dto) {
         DTORicompense ricompense = statoGioco.elaboraRicompense(statoGioco.getMostroAttuale());
         faseCorrente = Fasi.ESPLORAZIONE;
-        return gestoreUI.formattaCombattimento(dto)
-                + "\n" + gestoreUI.formattaRicompense(ricompense)
-                + "\n\n" + gestoreUI.menuEsplorazione();
+        return formattaTesto.formattaCombattimento(dto)
+                + "\n" + formattaTesto.formattaRicompense(ricompense)
+                + "\n\n" + formattaTesto.menuEsplorazione();
     }
 
     private String usaPozione() {
         boolean riuscito = statoGioco.usaPozione();
-        if (riuscito) return gestoreUI.aggiornaStatistiche()
-                + "\n\n" + gestoreUI.menuCombattimento();
-        return "Non hai pozioni disponibili.\n\n" + gestoreUI.menuCombattimento();
+        if (riuscito) return formattaTesto.aggiornaStatistiche()
+                + "\n\n" + formattaTesto.menuCombattimento();
+        return "Non hai pozioni disponibili.\n\n" + formattaTesto.menuCombattimento();
     }
 
 
@@ -164,7 +164,7 @@ public class GestoreComandi {
         return switch (input.trim()) {
             case "1" -> attaccaBoss();
             case "2" -> usaPozione();
-            default  -> "Scelta non valida.\n" + gestoreUI.menuCombattimento();
+            default  -> "Scelta non valida.\n" + formattaTesto.menuCombattimento();
         };
     }
 
@@ -172,21 +172,23 @@ public class GestoreComandi {
         DTOCombattimento dto = statoGioco.eseguiTurno(statoGioco.getBoss());
         if (!dto.isGiocatoreVivo()) return gestisciSconfitta(dto);
         if (!dto.isNemicoVivo()) return gestisciVittoriaBoss(dto);
-        return gestoreUI.formattaCombattimento(dto) + "\n\n" + gestoreUI.menuCombattimento();
+        return formattaTesto.formattaCombattimento(dto) + "\n\n" + formattaTesto.menuCombattimento();
     }
 
-    private String gestisciVittoriaBoss(DTOCombattimento dto) {
+    private String gestisciVittoriaBoss(DTOCombattimento dto){
+        DTORicompense ricompenseFinale = statoGioco.elaboraRicompense(statoGioco.getBoss());
         statoGioco.terminaPartita(true);
         faseCorrente = Fasi.FINE_PARTITA;
-        return gestoreUI.formattaCombattimento(dto) + elaboraFinale();
-    }
-
+        return formattaTesto.formattaCombattimento(dto)
+            + "\n" + formattaTesto.formattaRicompense(ricompenseFinale) // Mostra i premi del Boss!
+            + "\n\n" + formattaTesto.messaggioVittoria();
+}
 
 
     private String elaboraFinale() {
         if (statoGioco.isGiocatoreHaVinto()) {
-            return gestoreUI.messaggioVittoria();
+            return formattaTesto.messaggioVittoria();
         }
-        return gestoreUI.messaggioSconfitta();
+        return formattaTesto.messaggioSconfitta();
     }
 }

@@ -19,7 +19,7 @@ public class MappaFX extends Application {
         stage.setMinWidth(650);
         stage.setMinHeight(450);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 

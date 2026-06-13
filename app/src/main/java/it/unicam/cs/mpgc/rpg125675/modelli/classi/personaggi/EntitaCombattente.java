@@ -1,9 +1,9 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi;
 
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.Attaccabile;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IAttaccabile;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOAttaccoEseguito;
 
-public abstract class EntitaCombattente implements Attaccabile {
+public abstract class EntitaCombattente implements IAttaccabile {
 
     private final String nome;
     private int puntiVita;

@@ -1,9 +1,13 @@
 package it.unicam.cs.mpgc.rpg125675.controlli;
 
 
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.luoghi.Locanda;
+import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.GeneratoreMostri;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Fasi;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IGestoreSalvataggio;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.*;
+import it.unicam.cs.mpgc.rpg125675.modelli.logica.MotoreCombattimento;
 import it.unicam.cs.mpgc.rpg125675.modelli.logica.StatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.util.CaricaDaJson;
 import it.unicam.cs.mpgc.rpg125675.modelli.util.ConvertitoreSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
 import it.unicam.cs.mpgc.rpg125675.modelli.util.GestoreSalvataggio;
@@ -21,10 +25,10 @@ public class ControlloGioco {
     @FXML
     private TextField input;
 
-    private StatoGioco statoGioco;
+    private IStatoGioco statoGioco;
     private Fasi faseCorrente;
     private GestoreComandi gestoreComandi;
-    private GestoreUI gestoreUI;
+    private FormattaTesto formattaTesto;
     private final IGestoreSalvataggio gestoreSalvataggio = new GestoreSalvataggio();
 
     private FaseIniziale faseIniziale;
@@ -87,24 +91,47 @@ public class ControlloGioco {
 
     private void caricaPartitaSalvata() {
         DTOSalvataggio dto = gestoreSalvataggio.carica();
-        this.statoGioco = ConvertitoreSalvataggio.aStato(dto);
+        if (dto == null) {
+            areaOutput.appendText("\nSalvataggio corrotto o illeggibile. Nuova partita.\n");
+            faseIniziale = FaseIniziale.INSERIMENTO_NOME;
+            areaOutput.appendText(richiestaNome());
+            return;
+        }
+
+        // Inizializziamo i componenti concreti da iniettare
+        ILocanda locanda = new Locanda();
+        MotoreCombattimento motore = new MotoreCombattimento();
+        ICaricatoreMostri caricatore = new CaricaDaJson();
+        IGeneratoreMostri generatore = new GeneratoreMostri(caricatore);
+
+        // MODIFICATO: Passiamo le dipendenze al convertitore
+        this.statoGioco = ConvertitoreSalvataggio.aStato(dto, locanda, generatore, motore, caricatore);
+
         areaOutput.appendText("\nSalvataggio trovato: partita ripristinata.\n\n");
         avviaPartita();
     }
 
+    // Nel metodo gestisciInserimentoNome(String testo) in ControlloGioco.java:
     private void gestisciInserimentoNome(String testo) {
-        this.statoGioco = new StatoGioco(testo);
+        ILocanda locanda = new Locanda();
+        IGeneratoreMostri generatore = new GeneratoreMostri();
+        MotoreCombattimento motore = new MotoreCombattimento();
+        ICaricatoreMostri caricatore = new CaricaDaJson();
+
+        // Creazione dello stato tramite Iniezione pulita di tutte le sue componenti concrete
+        this.statoGioco = new StatoGioco(testo, locanda, generatore, motore, caricatore);
+
         areaOutput.appendText("\nBenvenuto, " + testo + "!\n\n");
         avviaPartita();
     }
 
     private void avviaPartita() {
-        this.gestoreUI = new GestoreUI(statoGioco);
-        this.gestoreComandi = new GestoreComandi(gestoreUI, statoGioco, Fasi.ESPLORAZIONE, gestoreSalvataggio);
+        this.formattaTesto = new FormattaTesto(statoGioco);
+        this.gestoreComandi = new GestoreComandi(formattaTesto, statoGioco, Fasi.ESPLORAZIONE, gestoreSalvataggio);
         this.faseCorrente = Fasi.ESPLORAZIONE;
         this.faseIniziale = FaseIniziale.IN_GIOCO;
 
-        areaOutput.appendText(gestoreUI.menuEsplorazione() + "\n");
+        areaOutput.appendText(formattaTesto.menuEsplorazione() + "\n");
         etichettaStatistiche.setText(statoGioco.getStatisticheGiocatore());
     }
 

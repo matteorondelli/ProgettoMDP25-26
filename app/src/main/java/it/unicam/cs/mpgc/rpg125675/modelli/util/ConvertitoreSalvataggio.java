@@ -1,9 +1,8 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.util;
 
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOSalvataggio;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Giocatore;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IPersonaggioGiocante;
-import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IStatoGioco;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.*;
+import it.unicam.cs.mpgc.rpg125675.modelli.logica.MotoreCombattimento;
 import it.unicam.cs.mpgc.rpg125675.modelli.logica.StatoGioco;
 
 public class ConvertitoreSalvataggio {
@@ -27,13 +26,22 @@ public class ConvertitoreSalvataggio {
         );
     }
 
-    public static StatoGioco aStato(DTOSalvataggio dto) {
-        StatoGioco statoGioco = new StatoGioco(dto.getNome());
-        IPersonaggioGiocante giocatore = statoGioco.getGiocatore();
-        if (giocatore instanceof Giocatore g) {
-            g.ripristinaDaSalvataggio(dto);
-        }
-        statoGioco.impostaLuogo(dto.getLuogoAttuale());
-        return statoGioco;
+    public static IStatoGioco aStato(DTOSalvataggio dto,
+                                     ILocanda locanda,
+                                     IGeneratoreMostri generatore,
+                                     MotoreCombattimento motore,
+                                     ICaricatoreMostri caricatore) {
+
+        // 1. Creiamo lo stato usando il costruttore disaccoppiato
+        IStatoGioco stato = new StatoGioco(dto.getNome(), locanda, generatore, motore, caricatore);
+
+        // 2. Chiamiamo il tuo metodo pulito per ripristinare il giocatore in un colpo solo!
+        // Nota: se la variabile del giocatore è privata, usiamo il getter dello stato
+        stato.getGiocatore().ripristinaDaSalvataggio(dto);
+
+        // 3. Ripristiniamo l'unico dato di competenza dello stato: il luogo attuale
+        stato.impostaLuogo(dto.getLuogoAttuale());
+
+        return stato;
     }
 }

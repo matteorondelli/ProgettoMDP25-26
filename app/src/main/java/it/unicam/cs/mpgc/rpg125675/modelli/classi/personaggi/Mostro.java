@@ -1,8 +1,9 @@
 package it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi;
 
 
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IRicompensante;
 
-public class Mostro extends EntitaCombattente {
+public class Mostro extends EntitaCombattente implements IRicompensante {
 
     private final int ricompensaOro;
     private final int ricompensaEsperienza;
@@ -17,18 +18,22 @@ public class Mostro extends EntitaCombattente {
         this.ricompensaFrammento = ricompensaFrammento;
     }
 
+    @Override
     public int getRicompensaOro() {
         return ricompensaOro;
     }
-
+    
+    @Override
     public boolean isRicompensaFrammento() {
         return ricompensaFrammento;
     }
 
+    @Override
     public int getRicompensaEsperienza() {
         return ricompensaEsperienza;
     }
 
+    @Override
     public boolean isRicompensaPozione() {
         return ricompensaPozione;
     }

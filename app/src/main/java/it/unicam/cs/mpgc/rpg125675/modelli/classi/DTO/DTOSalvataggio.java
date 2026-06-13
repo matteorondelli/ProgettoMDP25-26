@@ -3,7 +3,6 @@ package it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO;
 import it.unicam.cs.mpgc.rpg125675.modelli.enumerazioni.Luoghi;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * DTO immutabile che trasporta i dati di salvataggio del giocatore,
@@ -83,44 +82,4 @@ public class DTOSalvataggio {
         return pozioniCura;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DTOSalvataggio that)) return false;
-        return livello == that.livello &&
-                esperienza == that.esperienza &&
-                esperienzaPerLivello == that.esperienzaPerLivello &&
-                puntiVita == that.puntiVita &&
-                puntiVitaMassimi == that.puntiVitaMassimi &&
-                attacco == that.attacco &&
-                oro == that.oro &&
-                frammenti == that.frammenti &&
-                Objects.equals(nome, that.nome) &&
-                luogoAttuale == that.luogoAttuale &&
-                Objects.equals(pozioniCura, that.pozioniCura);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nome, livello, esperienza, esperienzaPerLivello,
-                puntiVita, puntiVitaMassimi, attacco, oro, frammenti,
-                luogoAttuale, pozioniCura);
-    }
-
-    @Override
-    public String toString() {
-        return "DTOSalvataggio{" +
-                "nome='" + nome + '\'' +
-                ", livello=" + livello +
-                ", esperienza=" + esperienza +
-                ", esperienzaPerLivello=" + esperienzaPerLivello +
-                ", puntiVita=" + puntiVita +
-                ", puntiVitaMassimi=" + puntiVitaMassimi +
-                ", attacco=" + attacco +
-                ", oro=" + oro +
-                ", frammenti=" + frammenti +
-                ", luogoAttuale=" + luogoAttuale +
-                ", pozioniCura=" + pozioniCura +
-                '}';
-    }
 }

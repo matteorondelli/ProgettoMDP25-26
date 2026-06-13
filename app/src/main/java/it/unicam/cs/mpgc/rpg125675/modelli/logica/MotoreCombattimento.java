@@ -3,11 +3,10 @@ package it.unicam.cs.mpgc.rpg125675.modelli.logica;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOAttaccoEseguito;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTOCombattimento;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.DTO.DTORicompense;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.oggetti.Pozione;
 import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.EntitaCombattente;
-import it.unicam.cs.mpgc.rpg125675.modelli.classi.personaggi.Mostro;
 import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IAttaccante;
 import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IPersonaggioGiocante;
+import it.unicam.cs.mpgc.rpg125675.modelli.interfacce.IRicompensante;
 
 
 public class MotoreCombattimento {
@@ -46,13 +45,13 @@ public class MotoreCombattimento {
         );
     }
 
-    public DTORicompense assegnaRicompense(IPersonaggioGiocante giocatore, Mostro mostro) {
+    public DTORicompense assegnaRicompense(IPersonaggioGiocante giocatore, IRicompensante mostro) {
         giocatore.aggiungiOro(mostro.getRicompensaOro());
         int livelloPrima = giocatore.getLivello();
         giocatore.aggiungiEsperienza(mostro.getRicompensaEsperienza());
         boolean livelloSalito = giocatore.getLivello() > livelloPrima;
         if (mostro.isRicompensaPozione()) {
-            giocatore.aggiungiOggetto(new Pozione("Pozione", 0,  30));
+            giocatore.aggiungiPozione();
         }
         if (mostro.isRicompensaFrammento()) {
             giocatore.aggiungiFrammento();
